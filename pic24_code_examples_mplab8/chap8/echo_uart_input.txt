@@ -1,0 +1,14 @@
+// Note: all values are in hex,
+// the 0x prefix is not needed.
+// Comments MUST begin on the first
+// line. They don't work at the
+// end of a line. Strings in double
+// quotes are sent as expected.
+
+// Wait for beginning of receive loop
+wait 80 ms
+
+"Echoing from uart_input.txt..."
+
+// Newline
+0D 0A

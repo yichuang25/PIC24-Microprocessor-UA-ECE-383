@@ -1,0 +1,18 @@
+var searchData=
+[
+  ['read',['read',['../pic24__stdio__uart_8c.html#a27586847bd1eec32b240d258ac9022ff',1,'pic24_stdio_uart.c']]],
+  ['read1i2c1',['read1I2C1',['../pic24__i2c_8c.html#a2a8bfb49bad9f2e933ee6c79f20a2199',1,'read1I2C1(uint8_t u8_addr, uint8_t *pu8_d1):&#160;pic24_i2c.c'],['../pic24__i2c_8h.html#a2a8bfb49bad9f2e933ee6c79f20a2199',1,'read1I2C1(uint8_t u8_addr, uint8_t *pu8_d1):&#160;pic24_i2c.c']]],
+  ['read2i2c1',['read2I2C1',['../pic24__i2c_8c.html#af384152c03427f30a8c78c6374587c15',1,'read2I2C1(uint8_t u8_addr, uint8_t *pu8_d1, uint8_t *pu8_d2):&#160;pic24_i2c.c'],['../pic24__i2c_8h.html#af384152c03427f30a8c78c6374587c15',1,'read2I2C1(uint8_t u8_addr, uint8_t *pu8_d1, uint8_t *pu8_d2):&#160;pic24_i2c.c']]],
+  ['readni2c1',['readNI2C1',['../pic24__i2c_8c.html#ad7b5590567340d2a3709521b0c687d53',1,'readNI2C1(uint8_t u8_addr, uint8_t *pu8_data, uint16_t u16_cnt):&#160;pic24_i2c.c'],['../pic24__i2c_8h.html#ad7b5590567340d2a3709521b0c687d53',1,'readNI2C1(uint8_t u8_addr, uint8_t *pu8_data, uint16_t u16_cnt):&#160;pic24_i2c.c']]],
+  ['readprogrammemory',['readProgramMemory',['../pic24__util_8c.html#a6f50824c1eac68e46a51e32d740589fa',1,'readProgramMemory(uint32_t u32_address):&#160;pic24_util.c'],['../pic24__util_8h.html#a6f50824c1eac68e46a51e32d740589fa',1,'readProgramMemory(uint32_t u32_address):&#160;pic24_util.c']]],
+  ['receivevar',['receiveVar',['../data_xfer_8h.html#a730e9a35beab01a45f0f6e0b17055abc',1,'dataXfer.h']]],
+  ['reporterror',['reportError',['../pic24__util_8c.html#a3b774698b1e1bf476ab8ed1e0836f9db',1,'reportError(const char *sz_errorMessage):&#160;pic24_util.c'],['../pic24__unittest_8h.html#a29e73efd1cab3e736d1969582f3fb7b0',1,'reportError(const char *message):&#160;pic24_util.c'],['../pic24__util_8h.html#ab544c3d147d5b840a26736656e199154',1,'reportError(const char *szErrorMessage):&#160;pic24_util.c']]],
+  ['resendvarspec',['resendVarSpec',['../unit_tests_8c.html#af2ccf0a6a554f64b13b766fe64a774b3',1,'unitTests.c']]],
+  ['resetcommandfindmachine',['resetCommandFindMachine',['../data_xfer_impl_8c.html#a6d6a3c48f416deea3d00d7006e001398',1,'resetCommandFindMachine():&#160;dataXferImpl.c'],['../data_xfer_impl_8h.html#a6d6a3c48f416deea3d00d7006e001398',1,'resetCommandFindMachine():&#160;dataXferImpl.c']]],
+  ['resetreceivemachine',['resetReceiveMachine',['../data_xfer_impl_8c.html#a88302adaa29892c6510f62f02fb3b9d5',1,'resetReceiveMachine():&#160;dataXferImpl.c'],['../data_xfer_impl_8h.html#a88302adaa29892c6510f62f02fb3b9d5',1,'resetReceiveMachine():&#160;dataXferImpl.c']]],
+  ['roundfloattouint16',['roundFloatToUint16',['../pic24__util_8c.html#a6895b7098e129c4876434a82f77a1ee0',1,'roundFloatToUint16(float f_x):&#160;pic24_util.c'],['../pic24__util_8h.html#a6895b7098e129c4876434a82f77a1ee0',1,'roundFloatToUint16(float f_x):&#160;pic24_util.c']]],
+  ['roundfloattouint32',['roundFloatToUint32',['../pic24__util_8c.html#a5e7d61014d2ce5d8bcd88a5512755378',1,'roundFloatToUint32(float f_x):&#160;pic24_util.c'],['../pic24__util_8h.html#a5e7d61014d2ce5d8bcd88a5512755378',1,'roundFloatToUint32(float f_x):&#160;pic24_util.c']]],
+  ['rstarti2c1',['rstartI2C1',['../pic24__i2c_8c.html#ad86ee64e39d61eaf63af61c79e574e84',1,'rstartI2C1(void):&#160;pic24_i2c.c'],['../pic24__i2c_8h.html#ad86ee64e39d61eaf63af61c79e574e84',1,'rstartI2C1(void):&#160;pic24_i2c.c']]],
+  ['runalltests',['runAllTests',['../data_xfer__test_8c.html#a3702737cbcdf9e878580a28c05a15a15',1,'runAllTests():&#160;unitTests.c'],['../unit_tests_8c.html#a3702737cbcdf9e878580a28c05a15a15',1,'runAllTests():&#160;unitTests.c']]],
+  ['runtest',['runTest',['../unit_tests_8c.html#a77376f2c17ee496306b1f28f61b1e12f',1,'unitTests.c']]]
+];

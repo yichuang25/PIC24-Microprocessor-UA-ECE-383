@@ -1,0 +1,43 @@
+#
+# braindead SConstruct file to build chap14 ESOS
+# apps for PC port of ESOS.
+#
+# \todo Needs lots of work!!!!!!!
+#
+import os.path
+import glob
+
+#
+# SConstruct to build ESOS applications on the PC
+#rel = Environment(CCFLAGS = '-O2')
+dbg = Environment(CCFLAGS = '-g')
+
+# add the include directories to the search path
+dbg.Append(CPPPATH=['../esos/include', '../esos/include/pc','../include'])
+
+# debug our scons environment
+#print opt.Dump()
+
+ESOS_common = Split("""../esos/src/esos.c
+                ../esos/src/esos_comm.c
+                """)
+
+ESOS_pc = Split("""../esos/src/pc/esos_pc_tick.c
+             ../esos/src/pc/esos_pc_stdio.c""")
+
+skip_list = Split("""./app_irqs.c
+                     ./app_ds1631.c
+					 ./app_ds1722.c
+                  """) 
+
+ESOS_apps = glob.glob("./*.c")
+new_list=[f for f in ESOS_apps if f not in skip_list]
+
+#print new_list
+# build a PC-ESOS version (with debug info) for each application source file in ESOS_apps
+for e in new_list:
+  a = os.path.splitext(e)[0]
+  dbg.Program(a, ESOS_common+ESOS_pc+[e] )
+
+
+

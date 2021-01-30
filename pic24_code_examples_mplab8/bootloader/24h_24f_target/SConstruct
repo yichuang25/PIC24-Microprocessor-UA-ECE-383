@@ -1,0 +1,62 @@
+# To do:
+# - Write a function to return a Clone of this environment that's
+#   specific to a processor
+# - Write a function to build reset over many different processors and
+#   many different clock choices
+# - Write functions to build the uart/spi/i2c code from templates
+
+import os
+
+# For testing: clean then build
+# del common\*.o && del chap8\*.o && del chap8\*.hex && scons
+
+device = ARGUMENTS.get('DEVICE', '24HJ32GP202')
+baudrate = ARGUMENTS.get('DEFAULT_BAUDRATE', '57600')
+cflag1 = ARGUMENTS.get('CFLAG1', 'DUMMYDONOTHING1')
+cflag2 = ARGUMENTS.get('CFLAG2', 'DUMMYDONOTHING2')
+
+# Create a generic Environment with all the right paths/flags for PIC30
+env = Environment(
+# Setting this causes pic30-gcc to crash!
+# Note that this command wipes out ALL variables in the environment,
+# then sets the PATH. Probably, picc30-gcc needs some variable set.
+# Instead, the next command sets just the PATH portion on ENV.
+#  ENV = {'PATH' : 'C:\\Program Files\\Microchip\\MPLAB C30\\bin'},
+  CPPPATH = 'include',
+  # need quotes since Windows otherwise gets confused by the space in Program Files.
+  CC = 'pic30-gcc',
+  CCCOM = '$CC -o $TARGET $CFLAGS $CCFLAGS $_CCCOMCOM -c $SOURCES $_CPPINCFLAGS',  # Copied from SCons\Tools\cc.py with mods
+  INCPREFIX = '-I',
+  CCFLAGS = '-mcpu=' + device + ' -Wall ' + ' -DDEFAULT_BAUDRATE=' + baudrate + ' -D' + cflag1 +' -D'+ cflag2 + ' ',
+  OBJSUFFIX = '.o',
+  LINK = 'pic30-gcc', # Copied from SCons\Tools\link.py with mods
+  LINKFLAGS = '-Wl,--script=.\lkr\p' + device + '.gld,--heap=100',
+  PROGSUFFIX = '.cof',
+  LINKCOM = '$LINK -o $TARGET $LINKFLAGS $SOURCES $_LIBDIRFLAGS $_LIBFLAGS')
+# Set just the PATH portion of ENV to point to C30 tools (see above
+# for more details).
+env['ENV']['PATH'] = os.environ['PATH']
+
+# Common sources used for the PIC24 support library
+PIC24SupportLibSources = [ 
+  'mem.c',
+  'pic24_clockfreq.c',
+  'pic24_configbits.c' ]
+
+# This function to takes a list source files, add the PIC24 common
+# sources to each item, then runs Program to build each item.
+def buildWithCommonSources(sourceFileList, commonSources, buildEnvironment):
+  for sourceFileGlob in sourceFileList:
+    for sourceFile in Glob(sourceFileGlob, True, True, True):
+      buildEnvironment.Program([sourceFile] + commonSources)
+
+
+
+env['ENV']['CCFLAGS'] = '-mcpu=24HJ32GP202 -Wall'
+env['ENV']['LINKFLAGS'] = '-Wl,--script=.\p24HJ32GP202.gld,--heap=100'
+buildWithCommonSources([
+    'main.c'],
+  PIC24SupportLibSources, env, );
+ 
+ 
+ 

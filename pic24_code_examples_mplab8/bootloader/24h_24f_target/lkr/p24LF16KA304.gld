@@ -1,0 +1,1233 @@
+/* GLD file for Bully bootloader firmware */
+/*
+** Linker script for PIC24LF16KA304
+*/
+
+OUTPUT_ARCH("24LF16KA304")
+CRT0_STARTUP(crt0_standard.o)
+CRT1_STARTUP(crt1_standard.o)
+
+OPTIONAL(-lp24LF16KA304)
+
+/*
+** Memory Regions
+*/
+MEMORY
+{
+  data  (a!xr)   : ORIGIN = 0x800,         LENGTH = 0x800
+  reset          : ORIGIN = 0x0,           LENGTH = 0x4
+  ivt            : ORIGIN = 0x4,           LENGTH = 0xFC
+  aivt           : ORIGIN = 0x104,         LENGTH = 0xFC
+  program (xr)   : ORIGIN = 0x200,         LENGTH = 0x2A00
+  eedata         : ORIGIN = 0x7FFE00,      LENGTH = 0x200
+  FBS            : ORIGIN = 0xF80000,      LENGTH = 0x2
+  FGS            : ORIGIN = 0xF80004,      LENGTH = 0x2
+  FOSCSEL        : ORIGIN = 0xF80006,      LENGTH = 0x2
+  FOSC           : ORIGIN = 0xF80008,      LENGTH = 0x2
+  FWDT           : ORIGIN = 0xF8000A,      LENGTH = 0x2
+  FPOR           : ORIGIN = 0xF8000C,      LENGTH = 0x2
+  FICD           : ORIGIN = 0xF8000E,      LENGTH = 0x2
+  FDS            : ORIGIN = 0xF80010,      LENGTH = 0x2
+}
+J__ReservedTrap0 = 0xc02;
+J__OscillatorFail = 0xc06;
+J__AddressError = 0xc0a;
+J__StackError = 0xc0e;
+J__MathError = 0xc12;
+J__ReservedTrap5 = 0xc16;
+J__ReservedTrap6 = 0xc1a;
+J__ReservedTrap7 = 0xc1e;
+J__INT0Interrupt = 0xc22;
+J__IC1Interrupt = 0xc26;
+J__OC1Interrupt = 0xc2a;
+J__T1Interrupt = 0xc2e;
+J__Interrupt4 = 0xc32;
+J__IC2Interrupt = 0xc36;
+J__OC2Interrupt = 0xc3a;
+J__T2Interrupt = 0xc3e;
+J__T3Interrupt = 0xc42;
+J__SPI1ErrInterrupt = 0xc46;
+J__SPI1Interrupt = 0xc4a;
+J__U1RXInterrupt = 0xc4e;
+J__U1TXInterrupt = 0xc52;
+J__ADC1Interrupt = 0xc56;
+J__Interrupt14 = 0xc5a;
+J__NVMInterrupt = 0xc5e;
+J__SI2C1Interrupt = 0xc62;
+J__MI2C1Interrupt = 0xc66;
+J__CompInterrupt = 0xc6a;
+J__CNInterrupt = 0xc6e;
+J__INT1Interrupt = 0xc72;
+J__Interrupt21 = 0xc76;
+J__Interrupt22 = 0xc7a;
+J__Interrupt23 = 0xc7e;
+J__Interrupt24 = 0xc82;
+J__OC3Interrupt = 0xc86;
+J__Interrupt26 = 0xc8a;
+J__T4Interrupt = 0xc8e;
+J__T5Interrupt = 0xc92;
+J__INT2Interrupt = 0xc96;
+J__U2RXInterrupt = 0xc9a;
+J__U2TXInterrupt = 0xc9e;
+J__SPI2ErrInterrupt = 0xca2;
+J__SPI2Interrupt = 0xca6;
+J__Interrupt34 = 0xcaa;
+J__Interrupt35 = 0xcae;
+J__Interrupt36 = 0xcb2;
+J__IC3Interrupt = 0xcb6;
+J__Interrupt38 = 0xcba;
+J__Interrupt39 = 0xcbe;
+J__Interrupt40 = 0xcc2;
+J__Interrupt41 = 0xcc6;
+J__Interrupt42 = 0xcca;
+J__Interrupt43 = 0xcce;
+J__Interrupt44 = 0xcd2;
+J__Interrupt45 = 0xcd6;
+J__Interrupt46 = 0xcda;
+J__Interrupt47 = 0xcde;
+J__Interrupt48 = 0xce2;
+J__SI2C2Interrupt = 0xce6;
+J__MI2C2Interrupt = 0xcea;
+J__Interrupt51 = 0xcee;
+J__Interrupt52 = 0xcf2;
+J__Interrupt53 = 0xcf6;
+J__Interrupt54 = 0xcfa;
+J__Interrupt55 = 0xcfe;
+J__Interrupt56 = 0xd02;
+J__Interrupt57 = 0xd06;
+J__Interrupt58 = 0xd0a;
+J__Interrupt59 = 0xd0e;
+J__Interrupt60 = 0xd12;
+J__Interrupt61 = 0xd16;
+J__RTCCInterrupt = 0xd1a;
+J__Interrupt63 = 0xd1e;
+J__Interrupt64 = 0xd22;
+J__U1ErrInterrupt = 0xd26;
+J__U2ErrInterrupt = 0xd2a;
+J__CRCInterrupt = 0xd2e;
+J__Interrupt68 = 0xd32;
+J__Interrupt69 = 0xd36;
+J__Interrupt70 = 0xd3a;
+J__Interrupt71 = 0xd3e;
+J__LVDInterrupt = 0xd42;
+J__Interrupt73 = 0xd46;
+J__Interrupt74 = 0xd4a;
+J__Interrupt75 = 0xd4e;
+J__Interrupt76 = 0xd52;
+J__CTMUInterrupt = 0xd56;
+J__Interrupt78 = 0xd5a;
+J__Interrupt79 = 0xd5e;
+J__ULPWUInterrupt = 0xd62;
+J__Interrupt81 = 0xd66;
+J__Interrupt82 = 0xd6a;
+J__Interrupt83 = 0xd6e;
+J__Interrupt84 = 0xd72;
+J__Interrupt85 = 0xd76;
+J__Interrupt86 = 0xd7a;
+J__Interrupt87 = 0xd7e;
+J__Interrupt88 = 0xd82;
+J__Interrupt89 = 0xd86;
+J__Interrupt90 = 0xd8a;
+J__Interrupt91 = 0xd8e;
+J__Interrupt92 = 0xd92;
+J__Interrupt93 = 0xd96;
+J__Interrupt94 = 0xd9a;
+J__Interrupt95 = 0xd9e;
+J__Interrupt96 = 0xda2;
+J__Interrupt97 = 0xda6;
+J__Interrupt98 = 0xdaa;
+J__Interrupt99 = 0xdae;
+J__Interrupt100 = 0xdb2;
+J__Interrupt101 = 0xdb6;
+J__Interrupt102 = 0xdba;
+J__Interrupt103 = 0xdbe;
+J__Interrupt104 = 0xdc2;
+J__Interrupt105 = 0xdc6;
+J__Interrupt106 = 0xdca;
+J__Interrupt107 = 0xdce;
+J__Interrupt108 = 0xdd2;
+J__Interrupt109 = 0xdd6;
+J__Interrupt110 = 0xdda;
+J__Interrupt111 = 0xdde;
+J__Interrupt112 = 0xde2;
+J__Interrupt113 = 0xde6;
+J__Interrupt114 = 0xdea;
+J__Interrupt115 = 0xdee;
+J__Interrupt116 = 0xdf2;
+J__Interrupt117 = 0xdf6;
+
+__FBS = 0xF80000;
+__FGS = 0xF80004;
+__FOSCSEL = 0xF80006;
+__FOSC = 0xF80008;
+__FWDT = 0xF8000A;
+__FPOR = 0xF8000C;
+__FICD = 0xF8000E;
+__FDS = 0xF80010;
+
+__NO_HANDLES = 1;          /* Suppress handles on this device  */
+
+__IVT_BASE  = 0x4;
+__AIVT_BASE = 0x104;
+__DATA_BASE = 0x800;
+__CODE_BASE = 0x200;
+
+
+/*
+** ==================== Section Map ======================
+*/
+SECTIONS
+{
+  /*
+  ** ========== Program Memory ==========
+  */
+
+
+  /*
+  ** Reset Instruction
+  */
+  .reset :
+  {
+        SHORT(ABSOLUTE(__reset));
+        SHORT(0x04);
+        SHORT((ABSOLUTE(__reset) >> 16) & 0x7F);
+        SHORT(0);
+  } >reset
+
+
+  /*
+  ** Interrupt Vector Tables
+  **
+  ** The primary and alternate tables are loaded
+  ** here, between sections .reset and .text.
+  ** Vector table source code appears below.
+  */
+
+
+  /*
+  ** User Code and Library Code
+  **
+  ** This section must not be assigned to __CODE_BASE,
+  ** because CodeGuard(tm) sections may be located there.
+  **
+  ** Note that input sections *(.text) are not mapped here.
+  ** The best-fit allocator locates them, so that .text
+  ** may flow around PSV sections as needed.
+  */
+  .text :
+  {
+        *(.init);
+        *(.user_init);
+        *(.handle);
+        *(.libc) *(.libm) *(.libdsp);  /* keep together in this order */
+        *(.lib*);
+  } >program
+
+
+  /*
+  ** User-Defined Section in Program Memory
+  **
+  ** note: can specify an address using
+  **       the following syntax:
+  **
+  **       usercode 0x1234 :
+  **         {
+  **           *(usercode);
+  **         } >program
+  */
+  usercode :
+  {
+        *(usercode);
+  } >program
+
+
+  /*
+  ** User-Defined Constants in Program Memory
+  **
+  ** For PSV type sections, the Load Memory Address (LMA)
+  ** should be specified as follows:
+  **
+  **       userconst : AT(0x1234)
+  **         {
+  **           *(userconst);
+  **         } >program
+  **
+  ** Note that mapping PSV sections in linker scripts
+  ** is not generally recommended.
+  **
+  ** Because of page alignment restrictions, memory is
+  ** often used more efficiently when PSV sections
+  ** do not appear in the linker script.
+  **
+  ** For more information on memory allocation,
+  ** please refer to chapter 10, 'Linker Processing'
+  ** in the Assembler, Linker manual (DS51317).
+  */
+
+
+  /*
+  ** Configuration Words
+  */
+  __FBS :
+  { *(__FBS.sec)    } >FBS
+  __FGS :
+  { *(__FGS.sec)    } >FGS
+  __FOSCSEL :
+  { *(__FOSCSEL.sec)    } >FOSCSEL
+  __FOSC :
+  { *(__FOSC.sec)    } >FOSC
+  __FWDT :
+  { *(__FWDT.sec)    } >FWDT
+  __FPOR :
+  { *(__FPOR.sec)    } >FPOR
+  __FICD :
+  { *(__FICD.sec)    } >FICD
+  __FDS :
+  { *(__FDS.sec)    } >FDS
+
+
+  /*
+  ** =========== Data Memory ===========
+  */
+
+
+  /*
+  ** ICD Debug Exec
+  **
+  ** This section provides optional storage for
+  ** the ICD2 debugger. Define a global symbol
+  ** named __ICD2RAM to enable ICD2. This section
+  ** must be loaded at data address 0x800.
+  */
+  .icd __DATA_BASE (NOLOAD):
+  {
+    . += (DEFINED (__ICD2RAM) ? 0x50 : 0 );
+  } > data
+
+
+  /*
+  ** Other sections in data memory are not explicitly mapped.
+  ** Instead they are allocated according to their section
+  ** attributes, which is most efficient.
+  ** 
+  ** If a specific arrangement of sections is required
+  ** (other than what can be achieved using attributes)
+  ** additional sections may be defined here. See chapter
+  ** 10.5 in the MPLAB ASM30/LINK30 User's Guide (DS51317)
+  ** for more information.
+  */
+
+
+  /*
+  ** ========== Debug Info ==============
+  */
+
+  .comment        0 : { *(.comment) }
+
+  /*
+  ** DWARF-2
+  */
+  .debug_info     0 : { *(.debug_info) *(.gnu.linkonce.wi.*) }
+  .debug_abbrev   0 : { *(.debug_abbrev) }
+  .debug_line     0 : { *(.debug_line) }
+  .debug_frame    0 : { *(.debug_frame) }
+  .debug_str      0 : { *(.debug_str) }
+  .debug_loc      0 : { *(.debug_loc) }
+  .debug_macinfo  0 : { *(.debug_macinfo) }
+  .debug_pubnames 0 : { *(.debug_pubnames) }
+  .debug_ranges   0 : { *(.debug_ranges) }
+  .debug_aranges  0 : { *(.debug_aranges) }
+
+} /* SECTIONS */
+
+/*
+** ================= End of Section Map ================
+*/
+
+/*
+** Section Map for Interrupt Vector Tables
+*/
+SECTIONS
+{
+
+/*
+** Interrupt Vector Table
+*/
+.ivt __IVT_BASE :
+{
+LONG(J__ReservedTrap0);
+LONG(J__OscillatorFail);
+LONG(J__AddressError);
+LONG(J__StackError);
+LONG(J__MathError);
+LONG(J__ReservedTrap5);
+LONG(J__ReservedTrap6);
+LONG(J__ReservedTrap7);
+LONG(J__INT0Interrupt);
+LONG(J__IC1Interrupt);
+LONG(J__OC1Interrupt);
+LONG(J__T1Interrupt);
+LONG(J__Interrupt4);
+LONG(J__IC2Interrupt);
+LONG(J__OC2Interrupt);
+LONG(J__T2Interrupt);
+LONG(J__T3Interrupt);
+LONG(J__SPI1ErrInterrupt);
+LONG(J__SPI1Interrupt);
+LONG(J__U1RXInterrupt);
+LONG(J__U1TXInterrupt);
+LONG(J__ADC1Interrupt);
+LONG(J__Interrupt14);
+LONG(J__NVMInterrupt);
+LONG(J__SI2C1Interrupt);
+LONG(J__MI2C1Interrupt);
+LONG(J__CompInterrupt);
+LONG(J__CNInterrupt);
+LONG(J__INT1Interrupt);
+LONG(J__Interrupt21);
+LONG(J__Interrupt22);
+LONG(J__Interrupt23);
+LONG(J__Interrupt24);
+LONG(J__OC3Interrupt);
+LONG(J__Interrupt26);
+LONG(J__T4Interrupt);
+LONG(J__T5Interrupt);
+LONG(J__INT2Interrupt);
+LONG(J__U2RXInterrupt);
+LONG(J__U2TXInterrupt);
+LONG(J__SPI2ErrInterrupt);
+LONG(J__SPI2Interrupt);
+LONG(J__Interrupt34);
+LONG(J__Interrupt35);
+LONG(J__Interrupt36);
+LONG(J__IC3Interrupt);
+LONG(J__Interrupt38);
+LONG(J__Interrupt39);
+LONG(J__Interrupt40);
+LONG(J__Interrupt41);
+LONG(J__Interrupt42);
+LONG(J__Interrupt43);
+LONG(J__Interrupt44);
+LONG(J__Interrupt45);
+LONG(J__Interrupt46);
+LONG(J__Interrupt47);
+LONG(J__Interrupt48);
+LONG(J__SI2C2Interrupt);
+LONG(J__MI2C2Interrupt);
+LONG(J__Interrupt51);
+LONG(J__Interrupt52);
+LONG(J__Interrupt53);
+LONG(J__Interrupt54);
+LONG(J__Interrupt55);
+LONG(J__Interrupt56);
+LONG(J__Interrupt57);
+LONG(J__Interrupt58);
+LONG(J__Interrupt59);
+LONG(J__Interrupt60);
+LONG(J__Interrupt61);
+LONG(J__RTCCInterrupt);
+LONG(J__Interrupt63);
+LONG(J__Interrupt64);
+LONG(J__U1ErrInterrupt);
+LONG(J__U2ErrInterrupt);
+LONG(J__CRCInterrupt);
+LONG(J__Interrupt68);
+LONG(J__Interrupt69);
+LONG(J__Interrupt70);
+LONG(J__Interrupt71);
+LONG(J__LVDInterrupt);
+LONG(J__Interrupt73);
+LONG(J__Interrupt74);
+LONG(J__Interrupt75);
+LONG(J__Interrupt76);
+LONG(J__CTMUInterrupt);
+LONG(J__Interrupt78);
+LONG(J__Interrupt79);
+LONG(J__ULPWUInterrupt);
+LONG(J__Interrupt81);
+LONG(J__Interrupt82);
+LONG(J__Interrupt83);
+LONG(J__Interrupt84);
+LONG(J__Interrupt85);
+LONG(J__Interrupt86);
+LONG(J__Interrupt87);
+LONG(J__Interrupt88);
+LONG(J__Interrupt89);
+LONG(J__Interrupt90);
+LONG(J__Interrupt91);
+LONG(J__Interrupt92);
+LONG(J__Interrupt93);
+LONG(J__Interrupt94);
+LONG(J__Interrupt95);
+LONG(J__Interrupt96);
+LONG(J__Interrupt97);
+LONG(J__Interrupt98);
+LONG(J__Interrupt99);
+LONG(J__Interrupt100);
+LONG(J__Interrupt101);
+LONG(J__Interrupt102);
+LONG(J__Interrupt103);
+LONG(J__Interrupt104);
+LONG(J__Interrupt105);
+LONG(J__Interrupt106);
+LONG(J__Interrupt107);
+LONG(J__Interrupt108);
+LONG(J__Interrupt109);
+LONG(J__Interrupt110);
+LONG(J__Interrupt111);
+LONG(J__Interrupt112);
+LONG(J__Interrupt113);
+LONG(J__Interrupt114);
+LONG(J__Interrupt115);
+LONG(J__Interrupt116);
+LONG(J__Interrupt117);
+  } >ivt
+
+
+/*
+** Alternate Interrupt Vector Table
+*/
+.aivt __AIVT_BASE :
+{
+LONG(J__ReservedTrap0);
+LONG(J__OscillatorFail);
+LONG(J__AddressError);
+LONG(J__StackError);
+LONG(J__MathError);
+LONG(J__ReservedTrap5);
+LONG(J__ReservedTrap6);
+LONG(J__ReservedTrap7);
+LONG(J__INT0Interrupt);
+LONG(J__IC1Interrupt);
+LONG(J__OC1Interrupt);
+LONG(J__T1Interrupt);
+LONG(J__Interrupt4);
+LONG(J__IC2Interrupt);
+LONG(J__OC2Interrupt);
+LONG(J__T2Interrupt);
+LONG(J__T3Interrupt);
+LONG(J__SPI1ErrInterrupt);
+LONG(J__SPI1Interrupt);
+LONG(J__U1RXInterrupt);
+LONG(J__U1TXInterrupt);
+LONG(J__ADC1Interrupt);
+LONG(J__Interrupt14);
+LONG(J__NVMInterrupt);
+LONG(J__SI2C1Interrupt);
+LONG(J__MI2C1Interrupt);
+LONG(J__CompInterrupt);
+LONG(J__CNInterrupt);
+LONG(J__INT1Interrupt);
+LONG(J__Interrupt21);
+LONG(J__Interrupt22);
+LONG(J__Interrupt23);
+LONG(J__Interrupt24);
+LONG(J__OC3Interrupt);
+LONG(J__Interrupt26);
+LONG(J__T4Interrupt);
+LONG(J__T5Interrupt);
+LONG(J__INT2Interrupt);
+LONG(J__U2RXInterrupt);
+LONG(J__U2TXInterrupt);
+LONG(J__SPI2ErrInterrupt);
+LONG(J__SPI2Interrupt);
+LONG(J__Interrupt34);
+LONG(J__Interrupt35);
+LONG(J__Interrupt36);
+LONG(J__IC3Interrupt);
+LONG(J__Interrupt38);
+LONG(J__Interrupt39);
+LONG(J__Interrupt40);
+LONG(J__Interrupt41);
+LONG(J__Interrupt42);
+LONG(J__Interrupt43);
+LONG(J__Interrupt44);
+LONG(J__Interrupt45);
+LONG(J__Interrupt46);
+LONG(J__Interrupt47);
+LONG(J__Interrupt48);
+LONG(J__SI2C2Interrupt);
+LONG(J__MI2C2Interrupt);
+LONG(J__Interrupt51);
+LONG(J__Interrupt52);
+LONG(J__Interrupt53);
+LONG(J__Interrupt54);
+LONG(J__Interrupt55);
+LONG(J__Interrupt56);
+LONG(J__Interrupt57);
+LONG(J__Interrupt58);
+LONG(J__Interrupt59);
+LONG(J__Interrupt60);
+LONG(J__Interrupt61);
+LONG(J__RTCCInterrupt);
+LONG(J__Interrupt63);
+LONG(J__Interrupt64);
+LONG(J__U1ErrInterrupt);
+LONG(J__U2ErrInterrupt);
+LONG(J__CRCInterrupt);
+LONG(J__Interrupt68);
+LONG(J__Interrupt69);
+LONG(J__Interrupt70);
+LONG(J__Interrupt71);
+LONG(J__LVDInterrupt);
+LONG(J__Interrupt73);
+LONG(J__Interrupt74);
+LONG(J__Interrupt75);
+LONG(J__Interrupt76);
+LONG(J__CTMUInterrupt);
+LONG(J__Interrupt78);
+LONG(J__Interrupt79);
+LONG(J__ULPWUInterrupt);
+LONG(J__Interrupt81);
+LONG(J__Interrupt82);
+LONG(J__Interrupt83);
+LONG(J__Interrupt84);
+LONG(J__Interrupt85);
+LONG(J__Interrupt86);
+LONG(J__Interrupt87);
+LONG(J__Interrupt88);
+LONG(J__Interrupt89);
+LONG(J__Interrupt90);
+LONG(J__Interrupt91);
+LONG(J__Interrupt92);
+LONG(J__Interrupt93);
+LONG(J__Interrupt94);
+LONG(J__Interrupt95);
+LONG(J__Interrupt96);
+LONG(J__Interrupt97);
+LONG(J__Interrupt98);
+LONG(J__Interrupt99);
+LONG(J__Interrupt100);
+LONG(J__Interrupt101);
+LONG(J__Interrupt102);
+LONG(J__Interrupt103);
+LONG(J__Interrupt104);
+LONG(J__Interrupt105);
+LONG(J__Interrupt106);
+LONG(J__Interrupt107);
+LONG(J__Interrupt108);
+LONG(J__Interrupt109);
+LONG(J__Interrupt110);
+LONG(J__Interrupt111);
+LONG(J__Interrupt112);
+LONG(J__Interrupt113);
+LONG(J__Interrupt114);
+LONG(J__Interrupt115);
+LONG(J__Interrupt116);
+LONG(J__Interrupt117);
+  } >aivt
+} /* SECTIONS */
+
+
+/*
+** ============== Equates for SFR Addresses =============
+*/
+
+ WREG0        = 0x0;
+_WREG0        = 0x0;
+ WREG1        = 0x2;
+_WREG1        = 0x2;
+ WREG2        = 0x4;
+_WREG2        = 0x4;
+ WREG3        = 0x6;
+_WREG3        = 0x6;
+ WREG4        = 0x8;
+_WREG4        = 0x8;
+ WREG5        = 0xA;
+_WREG5        = 0xA;
+ WREG6        = 0xC;
+_WREG6        = 0xC;
+ WREG7        = 0xE;
+_WREG7        = 0xE;
+ WREG8        = 0x10;
+_WREG8        = 0x10;
+ WREG9        = 0x12;
+_WREG9        = 0x12;
+ WREG10       = 0x14;
+_WREG10       = 0x14;
+ WREG11       = 0x16;
+_WREG11       = 0x16;
+ WREG12       = 0x18;
+_WREG12       = 0x18;
+ WREG13       = 0x1A;
+_WREG13       = 0x1A;
+ WREG14       = 0x1C;
+_WREG14       = 0x1C;
+ WREG15       = 0x1E;
+_WREG15       = 0x1E;
+ SPLIM        = 0x20;
+_SPLIM        = 0x20;
+ PCL          = 0x2E;
+_PCL          = 0x2E;
+ PCH          = 0x30;
+_PCH          = 0x30;
+ TBLPAG       = 0x32;
+_TBLPAG       = 0x32;
+ PSVPAG       = 0x34;
+_PSVPAG       = 0x34;
+ RCOUNT       = 0x36;
+_RCOUNT       = 0x36;
+ SR           = 0x42;
+_SR           = 0x42;
+_SRbits       = 0x42;
+ CORCON       = 0x44;
+_CORCON       = 0x44;
+_CORCONbits   = 0x44;
+ DISICNT      = 0x52;
+_DISICNT      = 0x52;
+ CNPD1        = 0x56;
+_CNPD1        = 0x56;
+_CNPD1bits    = 0x56;
+ CNPD2        = 0x58;
+_CNPD2        = 0x58;
+_CNPD2bits    = 0x58;
+ CNPD3        = 0x5A;
+_CNPD3        = 0x5A;
+_CNPD3bits    = 0x5A;
+ CNEN1        = 0x62;
+_CNEN1        = 0x62;
+_CNEN1bits    = 0x62;
+ CNEN2        = 0x64;
+_CNEN2        = 0x64;
+_CNEN2bits    = 0x64;
+ CNEN3        = 0x66;
+_CNEN3        = 0x66;
+_CNEN3bits    = 0x66;
+ CNPU1        = 0x6E;
+_CNPU1        = 0x6E;
+_CNPU1bits    = 0x6E;
+ CNPU2        = 0x70;
+_CNPU2        = 0x70;
+_CNPU2bits    = 0x70;
+ CNPU3        = 0x72;
+_CNPU3        = 0x72;
+_CNPU3bits    = 0x72;
+ INTCON1      = 0x80;
+_INTCON1      = 0x80;
+_INTCON1bits  = 0x80;
+ INTCON2      = 0x82;
+_INTCON2      = 0x82;
+_INTCON2bits  = 0x82;
+ IFS0         = 0x84;
+_IFS0         = 0x84;
+_IFS0bits     = 0x84;
+ IFS1         = 0x86;
+_IFS1         = 0x86;
+_IFS1bits     = 0x86;
+ IFS2         = 0x88;
+_IFS2         = 0x88;
+_IFS2bits     = 0x88;
+ IFS3         = 0x8A;
+_IFS3         = 0x8A;
+_IFS3bits     = 0x8A;
+ IFS4         = 0x8C;
+_IFS4         = 0x8C;
+_IFS4bits     = 0x8C;
+ IFS5         = 0x8E;
+_IFS5         = 0x8E;
+_IFS5bits     = 0x8E;
+ IEC0         = 0x94;
+_IEC0         = 0x94;
+_IEC0bits     = 0x94;
+ IEC1         = 0x96;
+_IEC1         = 0x96;
+_IEC1bits     = 0x96;
+ IEC2         = 0x98;
+_IEC2         = 0x98;
+_IEC2bits     = 0x98;
+ IEC3         = 0x9A;
+_IEC3         = 0x9A;
+_IEC3bits     = 0x9A;
+ IEC4         = 0x9C;
+_IEC4         = 0x9C;
+_IEC4bits     = 0x9C;
+ IEC5         = 0x9E;
+_IEC5         = 0x9E;
+_IEC5bits     = 0x9E;
+ IPC0         = 0xA4;
+_IPC0         = 0xA4;
+_IPC0bits     = 0xA4;
+ IPC1         = 0xA6;
+_IPC1         = 0xA6;
+_IPC1bits     = 0xA6;
+ IPC2         = 0xA8;
+_IPC2         = 0xA8;
+_IPC2bits     = 0xA8;
+ IPC3         = 0xAA;
+_IPC3         = 0xAA;
+_IPC3bits     = 0xAA;
+ IPC4         = 0xAC;
+_IPC4         = 0xAC;
+_IPC4bits     = 0xAC;
+ IPC5         = 0xAE;
+_IPC5         = 0xAE;
+_IPC5bits     = 0xAE;
+ IPC6         = 0xB0;
+_IPC6         = 0xB0;
+_IPC6bits     = 0xB0;
+ IPC7         = 0xB2;
+_IPC7         = 0xB2;
+_IPC7bits     = 0xB2;
+ IPC8         = 0xB4;
+_IPC8         = 0xB4;
+_IPC8bits     = 0xB4;
+ IPC9         = 0xB6;
+_IPC9         = 0xB6;
+_IPC9bits     = 0xB6;
+ IPC12        = 0xBC;
+_IPC12        = 0xBC;
+_IPC12bits    = 0xBC;
+ IPC15        = 0xC2;
+_IPC15        = 0xC2;
+_IPC15bits    = 0xC2;
+ IPC16        = 0xC4;
+_IPC16        = 0xC4;
+_IPC16bits    = 0xC4;
+ IPC18        = 0xC8;
+_IPC18        = 0xC8;
+_IPC18bits    = 0xC8;
+ IPC19        = 0xCA;
+_IPC19        = 0xCA;
+_IPC19bits    = 0xCA;
+ IPC20        = 0xCC;
+_IPC20        = 0xCC;
+_IPC20bits    = 0xCC;
+ INTTREG      = 0xE0;
+_INTTREG      = 0xE0;
+_INTTREGbits  = 0xE0;
+ TMR1         = 0x100;
+_TMR1         = 0x100;
+ PR1          = 0x102;
+_PR1          = 0x102;
+ T1CON        = 0x104;
+_T1CON        = 0x104;
+_T1CONbits    = 0x104;
+ TMR2         = 0x106;
+_TMR2         = 0x106;
+ TMR3HLD      = 0x108;
+_TMR3HLD      = 0x108;
+ TMR3         = 0x10A;
+_TMR3         = 0x10A;
+ PR2          = 0x10C;
+_PR2          = 0x10C;
+ PR3          = 0x10E;
+_PR3          = 0x10E;
+ T2CON        = 0x110;
+_T2CON        = 0x110;
+_T2CONbits    = 0x110;
+ T3CON        = 0x112;
+_T3CON        = 0x112;
+_T3CONbits    = 0x112;
+ TMR4         = 0x114;
+_TMR4         = 0x114;
+ TMR5HLD      = 0x116;
+_TMR5HLD      = 0x116;
+ TMR5         = 0x118;
+_TMR5         = 0x118;
+ PR4          = 0x11A;
+_PR4          = 0x11A;
+ PR5          = 0x11C;
+_PR5          = 0x11C;
+ T4CON        = 0x11E;
+_T4CON        = 0x11E;
+_T4CONbits    = 0x11E;
+ T5CON        = 0x120;
+_T5CON        = 0x120;
+_T5CONbits    = 0x120;
+ IC1CON1      = 0x140;
+_IC1CON1      = 0x140;
+_IC1CON1bits  = 0x140;
+ IC1CON2      = 0x142;
+_IC1CON2      = 0x142;
+_IC1CON2bits  = 0x142;
+ IC1BUF       = 0x144;
+_IC1BUF       = 0x144;
+ IC1TMR       = 0x146;
+_IC1TMR       = 0x146;
+ IC2CON1      = 0x148;
+_IC2CON1      = 0x148;
+_IC2CON1bits  = 0x148;
+ IC2CON2      = 0x14A;
+_IC2CON2      = 0x14A;
+_IC2CON2bits  = 0x14A;
+ IC2BUF       = 0x14C;
+_IC2BUF       = 0x14C;
+ IC2TMR       = 0x14E;
+_IC2TMR       = 0x14E;
+ IC3CON1      = 0x150;
+_IC3CON1      = 0x150;
+_IC3CON1bits  = 0x150;
+ IC3CON2      = 0x152;
+_IC3CON2      = 0x152;
+_IC3CON2bits  = 0x152;
+ IC3BUF       = 0x154;
+_IC3BUF       = 0x154;
+ IC3TMR       = 0x156;
+_IC3TMR       = 0x156;
+ OC1CON1      = 0x190;
+_OC1CON1      = 0x190;
+_OC1CON1bits  = 0x190;
+ OC1CON2      = 0x192;
+_OC1CON2      = 0x192;
+_OC1CON2bits  = 0x192;
+ OC1RS        = 0x194;
+_OC1RS        = 0x194;
+ OC1R         = 0x196;
+_OC1R         = 0x196;
+ OC1TMR       = 0x198;
+_OC1TMR       = 0x198;
+ OC2CON1      = 0x19A;
+_OC2CON1      = 0x19A;
+_OC2CON1bits  = 0x19A;
+ OC2CON2      = 0x19C;
+_OC2CON2      = 0x19C;
+_OC2CON2bits  = 0x19C;
+ OC2RS        = 0x19E;
+_OC2RS        = 0x19E;
+ OC2R         = 0x1A0;
+_OC2R         = 0x1A0;
+ OC2TMR       = 0x1A2;
+_OC2TMR       = 0x1A2;
+ OC3CON1      = 0x1A4;
+_OC3CON1      = 0x1A4;
+_OC3CON1bits  = 0x1A4;
+ OC3CON2      = 0x1A6;
+_OC3CON2      = 0x1A6;
+_OC3CON2bits  = 0x1A6;
+ OC3RS        = 0x1A8;
+_OC3RS        = 0x1A8;
+ OC3R         = 0x1AA;
+_OC3R         = 0x1AA;
+ OC3TMR       = 0x1AC;
+_OC3TMR       = 0x1AC;
+ I2C1RCV      = 0x200;
+_I2C1RCV      = 0x200;
+ I2C1TRN      = 0x202;
+_I2C1TRN      = 0x202;
+ I2C1BRG      = 0x204;
+_I2C1BRG      = 0x204;
+ I2C1CON      = 0x206;
+_I2C1CON      = 0x206;
+_I2C1CONbits  = 0x206;
+ I2C1STAT     = 0x208;
+_I2C1STAT     = 0x208;
+_I2C1STATbits = 0x208;
+ I2C1ADD      = 0x20A;
+_I2C1ADD      = 0x20A;
+ I2C1MSK      = 0x20C;
+_I2C1MSK      = 0x20C;
+ I2C2RCV      = 0x210;
+_I2C2RCV      = 0x210;
+ I2C2TRN      = 0x212;
+_I2C2TRN      = 0x212;
+ I2C2BRG      = 0x214;
+_I2C2BRG      = 0x214;
+ I2C2CON      = 0x216;
+_I2C2CON      = 0x216;
+_I2C2CONbits  = 0x216;
+ I2C2STAT     = 0x218;
+_I2C2STAT     = 0x218;
+_I2C2STATbits = 0x218;
+ I2C2ADD      = 0x21A;
+_I2C2ADD      = 0x21A;
+ I2C2MSK      = 0x21C;
+_I2C2MSK      = 0x21C;
+ U1MODE       = 0x220;
+_U1MODE       = 0x220;
+_U1MODEbits   = 0x220;
+ U1STA        = 0x222;
+_U1STA        = 0x222;
+_U1STAbits    = 0x222;
+ U1TXREG      = 0x224;
+_U1TXREG      = 0x224;
+_U1TXREGbits  = 0x224;
+ U1RXREG      = 0x226;
+_U1RXREG      = 0x226;
+_U1RXREGbits  = 0x226;
+ U1BRG        = 0x228;
+_U1BRG        = 0x228;
+ U2MODE       = 0x230;
+_U2MODE       = 0x230;
+_U2MODEbits   = 0x230;
+ U2STA        = 0x232;
+_U2STA        = 0x232;
+_U2STAbits    = 0x232;
+ U2TXREG      = 0x234;
+_U2TXREG      = 0x234;
+_U2TXREGbits  = 0x234;
+ U2RXREG      = 0x236;
+_U2RXREG      = 0x236;
+_U2RXREGbits  = 0x236;
+ U2BRG        = 0x238;
+_U2BRG        = 0x238;
+ SPI1STAT     = 0x240;
+_SPI1STAT     = 0x240;
+_SPI1STATbits = 0x240;
+ SPI1CON1     = 0x242;
+_SPI1CON1     = 0x242;
+_SPI1CON1bits = 0x242;
+ SPI1CON2     = 0x244;
+_SPI1CON2     = 0x244;
+_SPI1CON2bits = 0x244;
+ SPI1BUF      = 0x248;
+_SPI1BUF      = 0x248;
+ SPI2STAT     = 0x260;
+_SPI2STAT     = 0x260;
+_SPI2STATbits = 0x260;
+ SPI2CON1     = 0x262;
+_SPI2CON1     = 0x262;
+_SPI2CON1bits = 0x262;
+ SPI2CON2     = 0x264;
+_SPI2CON2     = 0x264;
+_SPI2CON2bits = 0x264;
+ SPI2BUF      = 0x268;
+_SPI2BUF      = 0x268;
+ TRISA        = 0x2C0;
+_TRISA        = 0x2C0;
+_TRISAbits    = 0x2C0;
+ PORTA        = 0x2C2;
+_PORTA        = 0x2C2;
+_PORTAbits    = 0x2C2;
+ LATA         = 0x2C4;
+_LATA         = 0x2C4;
+_LATAbits     = 0x2C4;
+ ODCA         = 0x2C6;
+_ODCA         = 0x2C6;
+_ODCAbits     = 0x2C6;
+ TRISB        = 0x2C8;
+_TRISB        = 0x2C8;
+_TRISBbits    = 0x2C8;
+ PORTB        = 0x2CA;
+_PORTB        = 0x2CA;
+_PORTBbits    = 0x2CA;
+ LATB         = 0x2CC;
+_LATB         = 0x2CC;
+_LATBbits     = 0x2CC;
+ ODCB         = 0x2CE;
+_ODCB         = 0x2CE;
+_ODCBbits     = 0x2CE;
+ TRISC        = 0x2D0;
+_TRISC        = 0x2D0;
+_TRISCbits    = 0x2D0;
+ PORTC        = 0x2D2;
+_PORTC        = 0x2D2;
+_PORTCbits    = 0x2D2;
+ LATC         = 0x2D4;
+_LATC         = 0x2D4;
+_LATCbits     = 0x2D4;
+ ODCC         = 0x2D6;
+_ODCC         = 0x2D6;
+_ODCCbits     = 0x2D6;
+ PADCFG1      = 0x2FC;
+_PADCFG1      = 0x2FC;
+_PADCFG1bits  = 0x2FC;
+ ADC1BUF0     = 0x300;
+_ADC1BUF0     = 0x300;
+ ADC1BUF1     = 0x302;
+_ADC1BUF1     = 0x302;
+ ADC1BUF2     = 0x304;
+_ADC1BUF2     = 0x304;
+ ADC1BUF3     = 0x306;
+_ADC1BUF3     = 0x306;
+ ADC1BUF4     = 0x308;
+_ADC1BUF4     = 0x308;
+ ADC1BUF5     = 0x30A;
+_ADC1BUF5     = 0x30A;
+ ADC1BUF6     = 0x30C;
+_ADC1BUF6     = 0x30C;
+ ADC1BUF7     = 0x30E;
+_ADC1BUF7     = 0x30E;
+ ADC1BUF8     = 0x310;
+_ADC1BUF8     = 0x310;
+ ADC1BUF9     = 0x312;
+_ADC1BUF9     = 0x312;
+ ADC1BUF10    = 0x314;
+_ADC1BUF10    = 0x314;
+ ADC1BUF11    = 0x316;
+_ADC1BUF11    = 0x316;
+ ADC1BUF12    = 0x318;
+_ADC1BUF12    = 0x318;
+ ADC1BUF13    = 0x31A;
+_ADC1BUF13    = 0x31A;
+ ADC1BUF14    = 0x31C;
+_ADC1BUF14    = 0x31C;
+ ADC1BUF15    = 0x31E;
+_ADC1BUF15    = 0x31E;
+ ADC1BUF16    = 0x320;
+_ADC1BUF16    = 0x320;
+ ADC1BUF17    = 0x322;
+_ADC1BUF17    = 0x322;
+ AD1CON1      = 0x340;
+_AD1CON1      = 0x340;
+_AD1CON1bits  = 0x340;
+ AD1CON2      = 0x342;
+_AD1CON2      = 0x342;
+_AD1CON2bits  = 0x342;
+ AD1CON3      = 0x344;
+_AD1CON3      = 0x344;
+_AD1CON3bits  = 0x344;
+ AD1CHS       = 0x348;
+_AD1CHS       = 0x348;
+_AD1CHSbits   = 0x348;
+ AD1CSSH      = 0x34E;
+_AD1CSSH      = 0x34E;
+_AD1CSSHbits  = 0x34E;
+ AD1CSSL      = 0x350;
+_AD1CSSL      = 0x350;
+_AD1CSSLbits  = 0x350;
+ AD1CON5      = 0x354;
+_AD1CON5      = 0x354;
+_AD1CON5bits  = 0x354;
+ AD1CHITH     = 0x356;
+_AD1CHITH     = 0x356;
+_AD1CHITHbits = 0x356;
+ AD1CHITL     = 0x358;
+_AD1CHITL     = 0x358;
+_AD1CHITLbits = 0x358;
+ CTMUCON1     = 0x35A;
+_CTMUCON1     = 0x35A;
+_CTMUCON1bits = 0x35A;
+ CTMUCON2     = 0x35C;
+_CTMUCON2     = 0x35C;
+_CTMUCON2bits = 0x35C;
+ CTMUICON     = 0x35E;
+_CTMUICON     = 0x35E;
+_CTMUICONbits = 0x35E;
+ AD1CTMUENH   = 0x360;
+_AD1CTMUENH   = 0x360;
+_AD1CTMUENHbits = 0x360;
+ AD1CTMUENL   = 0x362;
+_AD1CTMUENL   = 0x362;
+_AD1CTMUENLbits = 0x362;
+ ANSELA       = 0x4E0;
+_ANSELA       = 0x4E0;
+_ANSELAbits   = 0x4E0;
+ ANSELB       = 0x4E2;
+_ANSELB       = 0x4E2;
+_ANSELBbits   = 0x4E2;
+ ANSELC       = 0x4E4;
+_ANSELC       = 0x4E4;
+_ANSELCbits   = 0x4E4;
+ ALRMVAL      = 0x620;
+_ALRMVAL      = 0x620;
+ ALCFGRPT     = 0x622;
+_ALCFGRPT     = 0x622;
+_ALCFGRPTbits = 0x622;
+ RTCVAL       = 0x624;
+_RTCVAL       = 0x624;
+ RCFGCAL1     = 0x626;
+_RCFGCAL1     = 0x626;
+_RCFGCAL1bits = 0x626;
+ RCFGCAL2     = 0x628;
+_RCFGCAL2     = 0x628;
+_RCFGCAL2bits = 0x628;
+ CMSTAT       = 0x630;
+_CMSTAT       = 0x630;
+_CMSTATbits   = 0x630;
+ CVRCON       = 0x632;
+_CVRCON       = 0x632;
+_CVRCONbits   = 0x632;
+ CM1CON       = 0x634;
+_CM1CON       = 0x634;
+_CM1CONbits   = 0x634;
+ CM2CON       = 0x636;
+_CM2CON       = 0x636;
+_CM2CONbits   = 0x636;
+ CM3CON       = 0x638;
+_CM3CON       = 0x638;
+_CM3CONbits   = 0x638;
+ CRCCON       = 0x640;
+_CRCCON       = 0x640;
+_CRCCONbits   = 0x640;
+ CRCCON2      = 0x642;
+_CRCCON2      = 0x642;
+_CRCCON2bits  = 0x642;
+ CRCXOR       = 0x644;
+_CRCXOR       = 0x644;
+ CRCXORH      = 0x646;
+_CRCXORH      = 0x646;
+ CRCDAT       = 0x648;
+_CRCDAT       = 0x648;
+ CRCDATH      = 0x64A;
+_CRCDATH      = 0x64A;
+ CRCWDAT      = 0x64C;
+_CRCWDAT      = 0x64C;
+ CRCWDATH     = 0x64E;
+_CRCWDATH     = 0x64E;
+ RCON         = 0x740;
+_RCON         = 0x740;
+_RCONbits     = 0x740;
+ OSCCON       = 0x742;
+_OSCCON       = 0x742;
+_OSCCONbits   = 0x742;
+ OSCCONL      = 0x742;
+_OSCCONL      = 0x742;
+ OSCCONH      = 0x743;
+_OSCCONH      = 0x743;
+ CLKDIV       = 0x744;
+_CLKDIV       = 0x744;
+_CLKDIVbits   = 0x744;
+ OSCTUN       = 0x748;
+_OSCTUN       = 0x748;
+_OSCTUNbits   = 0x748;
+ REFOCON      = 0x74E;
+_REFOCON      = 0x74E;
+_REFOCONbits  = 0x74E;
+ HLVDCON      = 0x756;
+_HLVDCON      = 0x756;
+_HLVDCONbits  = 0x756;
+ DSCON        = 0x758;
+_DSCON        = 0x758;
+_DSCONbits    = 0x758;
+ DSWSRC       = 0x75A;
+_DSWSRC       = 0x75A;
+_DSWSRCbits   = 0x75A;
+ DSGPR0       = 0x75C;
+_DSGPR0       = 0x75C;
+ DSGPR1       = 0x75E;
+_DSGPR1       = 0x75E;
+ NVMCON       = 0x760;
+_NVMCON       = 0x760;
+_NVMCONbits   = 0x760;
+ NVMKEY       = 0x766;
+_NVMKEY       = 0x766;
+_NVMKEYbits   = 0x766;
+ ULPWCON      = 0x768;
+_ULPWCON      = 0x768;
+_ULPWCONbits  = 0x768;
+ PMD1         = 0x770;
+_PMD1         = 0x770;
+_PMD1bits     = 0x770;
+ PMD2         = 0x772;
+_PMD2         = 0x772;
+_PMD2bits     = 0x772;
+ PMD3         = 0x774;
+_PMD3         = 0x774;
+_PMD3bits     = 0x774;
+ PMD4         = 0x776;
+_PMD4         = 0x776;
+_PMD4bits     = 0x776;
+/*
+** ======= Base Addresses for Various Peripherals ======
+*/
+
+ IC1          = 0x144;
+_IC1          = 0x144;
+ IC2          = 0x14C;
+_IC2          = 0x14C;
+ IC3          = 0x154;
+_IC3          = 0x154;
+ OC1          = 0x194;
+_OC1          = 0x194;
+ OC2          = 0x19E;
+_OC2          = 0x19E;
+ OC3          = 0x1A8;
+_OC3          = 0x1A8;
+ SPI1         = 0x240;
+_SPI1         = 0x240;
+ SPI2         = 0x260;
+_SPI2         = 0x260;
+ UART1        = 0x220;
+_UART1        = 0x220;
+ UART2        = 0x230;
+_UART2        = 0x230;

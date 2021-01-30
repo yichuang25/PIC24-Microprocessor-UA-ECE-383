@@ -1,0 +1,31 @@
+#
+# SConstruct to build ESOS applications on the PC
+#
+opt = Environment(CCFLAGS = '-O2')
+dbg = Environment(CCFLAGS = '-g')
+
+# add the include directories to the search path
+dbg.Append(CPPPATH=['../../include', '../../include/pc'])
+opt.Append(CPPPATH=['../../include', '../../include/pc'])
+
+#print opt.Dump()
+
+
+ESOS_common = Split("""../esos.c
+                ../esos_comm.c
+                """)
+       
+ESOS_pic24 = Split("""esos_pic24_tick.c
+                esos_pic24_rs232.c
+                esos_pic24_irq.c""")
+    
+ESOS_pc = Split("""esos_pc_tick.c
+             esos_pc_stdio.c""")
+
+#ESOS_app = Split("""app_uppercase.c""")
+ESOS_app = Split("""app_example.c""")
+
+#opt.Program('app-rel', ESOS_common+ESOS_pc+ESOS_app)
+dbg.Program('app-dbg', ESOS_common+ESOS_pc+ESOS_app )
+   
+

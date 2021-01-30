@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='windows-1252'?>  
+  <Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>  
+   <Product Name='Bully Bootloader' Id='73e6b9ac-0c53-4624-ac76-2b3f4d475952'  
+   UpgradeCode='1000af5b-4eac-40b6-a5e3-036ae417653d'  
+   Language='1033' Version='0.35' Manufacturer='RBR'>  
+     
+   <Package Id='*' InstallerVersion='200' Compressed='yes' />  
+   
+   <Condition Message='This setup requires the .NET Framework 2.0 or higher.'>
+       <![CDATA[MsiNetAssemblySupport >= "2.0.50727"]]>
+      </Condition>
+      
+   <Media Id='1' Cabinet='SampleApp.cab' EmbedCab='yes' />  
+     
+  <Directory Id='TARGETDIR' Name='SourceDir'>  
+   <Directory Id='ProgramFilesFolder'>  
+     <Directory Id='INSTALLDIR' Name='Bully Bootloader'>  
+      <Component Id='MainExecutable' Guid='82e7865b-66bb-4aab-b058-85b497a92f38'>  
+       <File Id='BullyBootloaderEXE' Name='winbootldr.exe' DiskId='1'
+          Source='.\bin\winbootldr.exe' Vital='yes'> 
+		 <Shortcut Id="startmenuApp" Directory="ProgramMenuDir"  
+           Name="Bully Bootloader" WorkingDirectory='INSTALLDIR'  
+           Icon="bully.ico" IconIndex="0" Advertise='yes'/>  		  
+        </File>
+		<File Id='BullyDevicesTXT' Name='devices.txt' DiskId='1'
+          Source='.\bin\devices.txt' Vital='yes'>
+		</File>	     
+      <RemoveFolder Id="INSTALLDIR" On="uninstall" />  
+     </Component>  
+	 <Directory Id='VCDLLS' Name='Microsoft.VC80.CRT'>
+	 <Component Id='DLLRequired' Guid='a5e99c3a-9cbc-47d4-a6c3-0459779355e2'>  
+	     <File Id='DLL1File' Name='msvcm80.dll' DiskId='1'
+          Source='.\bin\Microsoft.VC80.CRT\msvcm80.dll' Vital='yes'> 
+         </File>
+		 <File Id='DLL2File' Name='msvcp80.dll' DiskId='1'
+          Source='.\bin\Microsoft.VC80.CRT\msvcp80.dll' Vital='yes'> 
+         </File>
+		 <File Id='DLL3File' Name='msvcr80.dll' DiskId='1'
+          Source='.\bin\Microsoft.VC80.CRT\msvcr80.dll' Vital='yes'> 
+         </File>
+		 <File Id='Manifest' Name='Microsoft.VC80.CRT.manifest' DiskId='1'
+          Source='.\bin\Microsoft.VC80.CRT\Microsoft.VC80.CRT.manifest' Vital='yes'> 
+         </File>
+	 </Component>  
+	 </Directory>
+	 <Component Id='Manual' Guid='3ecda521-4bbc-4360-8d8b-7f98aeaa787b'>  
+       <File Id='BullyBootloaderPDF' Name='PIC24_bully_bootloader.pdf' DiskId='1'
+          Source='.\bin\PIC24_bully_bootloader.pdf' Vital='yes'> 
+		 <Shortcut Id="startmenuDoc" Directory="ProgramMenuDir"  
+           Name="Bootloader Documentation" WorkingDirectory='INSTALLDIR'  
+           Icon="bullydoc.ico" IconIndex="0" Advertise='yes'/>  		  
+        </File>
+	 </Component>
+     
+	 </Directory>  
+    </Directory>  
+	
+   <Directory Id="ProgramMenuFolder">  
+    <Directory Id="ProgramMenuDir" Name="Bully Bootloader">  
+     <Component Id='ProgramMenuDir' Guid='d59a840a-e716-4978-b9b5-03366f1010f4'>  
+       <RegistryValue Root='HKCU' Key='SOFTWARE\RBR\Bully Bootloader'  
+         Type='string' Value='dummy' KeyPath='yes' />  
+         <RemoveFolder Id="ProgramMenuDir" On="uninstall" />  
+     </Component>  
+    </Directory>  
+   </Directory> 	
+  </Directory> 
+
+  
+  <Icon Id="bully.ico" SourceFile=".\UI\icon.ico" />  
+  <Icon Id="bullydoc.ico" SourceFile=".\UI\pdf_ico.ico" />  
+  
+ 
+     
+  <Feature Id='Complete' Level="1">  
+  <ComponentRef Id='MainExecutable' />
+  <ComponentRef Id='Manual' />
+   <ComponentRef Id='ProgramMenuDir' /> 
+  <ComponentRef Id='DLLRequired' />   
+   
+  </Feature>  
+  
+   <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />  
+   <UIRef Id="WixUI_InstallDir" /> 
+
+   <WixVariable Id="WixUIBannerBmp" Value="UI\bannrbmp.bmp" />  
+   <WixVariable Id="WixUIDialogBmp" Value="UI\dlgbmp.bmp" />  
+   <WixVariable Id="WixUILicenseRtf" Value="UI\BullyLicense.rtf" />   
+   
+  
+     
+  </Product>  
+ </Wix>  
+

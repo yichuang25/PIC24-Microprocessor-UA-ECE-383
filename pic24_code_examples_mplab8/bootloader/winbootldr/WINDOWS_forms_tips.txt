@@ -1,0 +1,3 @@
+
+Docking Windows/Resizing
+ms-help://MS.VSCC.v80/MS.MSDN.v80/MS.NETDEV.v10.en/dnforms/html/winforms12102002.htm
